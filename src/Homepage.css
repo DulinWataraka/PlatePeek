@@ -1,0 +1,346 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #FDEDD6;
+    color: #3D5926;
+}
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.app {
+    min-height: 100vh;
+    overflow: hidden;
+    background: #FDEDD6;
+}
+
+/* NAVIGATION */
+
+.navbar {
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 6%;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+.logo-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 14px;
+    background: #FC8F00;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 21px;
+}
+
+.navbar nav {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.login-button {
+    border: none;
+    background: transparent;
+    color: #3D5926;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.join-button {
+    border: none;
+    background: #3D5926;
+    color: #FDEDD6;
+    padding: 15px 23px;
+    border-radius: 30px;
+    font-size: 15px;
+    font-weight: 700;
+    transition: transform 0.2s ease;
+}
+
+.join-button:hover {
+    transform: translateY(-3px);
+}
+
+/* HERO */
+
+.hero {
+    min-height: 650px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 70px 8% 40px;
+}
+
+.hero-content {
+    max-width: 650px;
+    animation: slideIn 0.8s ease forwards;
+}
+
+.eyebrow {
+    display: inline-block;
+    padding: 9px 16px;
+    border-radius: 30px;
+    background: #FC8F00;
+    color: #3D5926;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    margin-bottom: 25px;
+}
+
+h1 {
+    font-family: Georgia, serif;
+    font-size: clamp(60px, 7vw, 105px);
+    line-height: 0.88;
+    letter-spacing: -6px;
+    margin: 0;
+    color: #3D5926;
+}
+
+h1 span {
+    color: #FC8F00;
+    display: block;
+}
+
+.hero-content p {
+    max-width: 570px;
+    margin-top: 35px;
+    font-size: 19px;
+    line-height: 1.6;
+    color: #68795B;
+}
+
+/* BUTTONS */
+
+.hero-buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.primary-button,
+.secondary-button {
+    padding: 17px 26px;
+    border-radius: 15px;
+    font-size: 16px;
+    font-weight: 800;
+    transition: all 0.25s ease;
+}
+
+.primary-button {
+    border: none;
+    background: #FC8F00;
+    color: #3D5926;
+}
+
+.primary-button:hover {
+    transform: translateY(-5px);
+}
+
+.secondary-button {
+    border: 2px solid #D8C7AA;
+    background: transparent;
+    color: #3D5926;
+}
+
+.secondary-button:hover {
+    background: #3D5926;
+    color: #FDEDD6;
+}
+
+/* FOOD ANIMATION AREA */
+
+.food-area {
+    position: relative;
+    width: 420px;
+    height: 420px;
+    margin-right: 3%;
+}
+
+.plate {
+    position: absolute;
+    inset: 80px;
+    border-radius: 50%;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 130px;
+    box-shadow: 0 30px 70px rgba(61, 89, 38, 0.15);
+    animation: float 4s ease-in-out infinite;
+}
+
+.food-card {
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    border-radius: 25px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 45px;
+    box-shadow: 0 20px 40px rgba(61, 89, 38, 0.13);
+}
+
+.card-one {
+    top: 20px;
+    left: 20px;
+    animation: float 3.5s ease-in-out infinite;
+}
+
+.card-two {
+    right: 10px;
+    top: 80px;
+    animation: float 4.2s ease-in-out infinite;
+}
+
+.card-three {
+    left: 20px;
+    bottom: 50px;
+    animation: float 3.8s ease-in-out infinite;
+}
+
+.card-four {
+    right: 20px;
+    bottom: 20px;
+    animation: float 4.5s ease-in-out infinite;
+}
+
+/* COMMUNITY */
+
+.community {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 0 8% 50px;
+}
+
+.community strong {
+    color: #3D5926;
+}
+
+.community p {
+    margin: 5px 0;
+    color: #758468;
+}
+
+.avatars {
+    display: flex;
+}
+
+.avatars span {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #FC8F00;
+    border: 3px solid #FDEDD6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: -8px;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.avatars span:first-child {
+    margin-left: 0;
+}
+
+/* ANIMATIONS */
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-18px) rotate(3deg);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(35px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* MOBILE */
+
+@media (max-width: 900px) {
+    .hero {
+        flex-direction: column;
+        text-align: center;
+        padding-top: 40px;
+    }
+
+    .hero-content p {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero-buttons {
+        justify-content: center;
+    }
+
+    .food-area {
+        margin-top: 50px;
+        transform: scale(0.8);
+    }
+
+    .community {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 600px) {
+    .navbar {
+        padding: 0 20px;
+    }
+
+    .login-button {
+        display: none;
+    }
+
+    .join-button {
+        padding: 12px 17px;
+    }
+
+    .hero {
+        padding: 40px 20px;
+    }
+
+    h1 {
+        font-size: 58px;
+        letter-spacing: -4px;
+    }
+
+    .food-area {
+        transform: scale(0.65);
+        margin-top: 10px;
+    }
+}
