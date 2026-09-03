@@ -1,6 +1,9 @@
+import { useNavigate } from "react-router-dom";
 import "./Homepage.css";
 
 function Homepage() {
+    const navigate = useNavigate();
+
     return (
         <div className="app">
             <header className="navbar">
@@ -10,8 +13,10 @@ function Homepage() {
                 </div>
 
                 <nav>
-                    <button className="login-button">Log in</button>
-                    <button className="join-button">
+                    <button className="login-button" onClick={() => navigate("/login")}>
+                        Log in
+                    </button>
+                    <button className="join-button" onClick={() => navigate("/login")}>
                         Join the table <span>→</span>
                     </button>
                 </nav>
@@ -26,7 +31,7 @@ function Homepage() {
                     <h1>
                         Your next
                         <span> favorite </span>
-                        bite starts here.
+                        bite is social.
                     </h1>
 
                     <p>

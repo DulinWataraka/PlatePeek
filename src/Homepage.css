@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap");
+
 * {
     box-sizing: border-box;
 }
@@ -5,7 +7,7 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: #FDEDD6;
+    background: #f6e5ce;
     color: #3D5926;
 }
 
@@ -17,7 +19,7 @@ button {
 .app {
     min-height: 100vh;
     overflow: hidden;
-    background: #FDEDD6;
+    background: #f6e5ce;
 }
 
 /* NAVIGATION */
@@ -31,6 +33,7 @@ button {
 }
 
 .logo {
+    font-family: "Fraunces", serif;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -67,7 +70,7 @@ button {
 .join-button {
     border: none;
     background: #3D5926;
-    color: #FDEDD6;
+    color: #f6e5ce;
     padding: 15px 23px;
     border-radius: 30px;
     font-size: 15px;
@@ -90,6 +93,7 @@ button {
 }
 
 .hero-content {
+    font-family: "Fraunces", serif;
     max-width: 650px;
     animation: slideIn 0.8s ease forwards;
 }
@@ -107,12 +111,15 @@ button {
 }
 
 h1 {
-    font-family: Georgia, serif;
+    font-family: "Fraunces", serif;
     font-size: clamp(60px, 7vw, 105px);
     line-height: 0.88;
     letter-spacing: -6px;
     margin: 0;
-    color: #3D5926;
+    font-weight: 700;
+    letter-spacing: -0.075em;
+    margin-top: 1.5rem;
+    color: #30451f;
 }
 
 h1 span {
@@ -163,7 +170,7 @@ h1 span {
 
 .secondary-button:hover {
     background: #3D5926;
-    color: #FDEDD6;
+    color: #f6e5ce;
 }
 
 /* FOOD ANIMATION AREA */
@@ -252,7 +259,7 @@ h1 span {
     height: 42px;
     border-radius: 50%;
     background: #FC8F00;
-    border: 3px solid #FDEDD6;
+    border: 3px solid #f6e5ce;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -335,6 +342,7 @@ h1 span {
     }
 
     h1 {
+
         font-size: 58px;
         letter-spacing: -4px;
     }
