@@ -1,16 +1,15 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useState } from "react";
 import Homepage from "./Homepage.jsx";
-import LoginPage from "./LoginPage.jsx";
+import Login from "./Login.jsx";
 
 function App() {
-    return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<Homepage />} />
-                <Route path="/login" element={<LoginPage />} />
-            </Routes>
-        </BrowserRouter>
-    );
+    const [page, setPage] = useState("home");
+
+    if (page === "login") {
+        return <Login onBackToHome={() => setPage("home")} />;
+    }
+
+    return <Homepage onLoginClick={() => setPage("login")} />;
 }
 
 export default App;
