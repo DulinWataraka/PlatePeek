@@ -105,9 +105,10 @@ button {
     letter-spacing: 1px;
     margin-bottom: 25px;
 }
-
 h1 {
-    font-family: Georgia, serif;
+    font-family: 'Fraunces', serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
     font-size: clamp(60px, 7vw, 105px);
     line-height: 0.88;
     letter-spacing: -6px;
@@ -117,6 +118,8 @@ h1 {
 
 h1 span {
     color: #FC8F00;
+    font-style: italic;
+    font-weight: 500;
     display: block;
 }
 

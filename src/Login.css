@@ -172,6 +172,20 @@
     border-color: #3D5926;
 }
 
+.login-form input:-webkit-autofill,
+.login-form input:-webkit-autofill:hover,
+.login-form input:-webkit-autofill:focus {
+    -webkit-text-fill-color: #3D5926;
+    -webkit-box-shadow: 0 0 0 1000px #FDEDD6 inset;
+    box-shadow: 0 0 0 1000px #FDEDD6 inset;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+    display: none;
+}
+
 .password-field {
     position: relative;
     margin-bottom: 8px;
@@ -195,6 +209,15 @@
     font-size: 17px;
     line-height: 1;
     padding: 4px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.15s ease;
+}
+
+.password-field input:focus ~ .toggle-password,
+.password-field input:not(:placeholder-shown) ~ .toggle-password {
+    opacity: 1;
+    visibility: visible;
 }
 
 .forgot-link {

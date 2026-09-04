@@ -61,7 +61,7 @@ function Login({ onBackToHome }) {
                                 onClick={() => setShowPassword((v) => !v)}
                                 aria-label={showPassword ? "Hide password" : "Show password"}
                             >
-                                👁
+                                {showPassword ? "🙉" : "🙈"}
                             </button>
                         </div>
 
