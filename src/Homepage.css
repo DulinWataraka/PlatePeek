@@ -169,63 +169,68 @@ h1 span {
     color: #FDEDD6;
 }
 
-/* FOOD ANIMATION AREA */
+/* HERO PHOTOS (overlapping cards) */
 
-.food-area {
+.hero-photos {
     position: relative;
     width: 420px;
     height: 420px;
     margin-right: 3%;
+    animation: slideIn 0.8s ease forwards;
 }
 
-.plate {
+.hero-photo {
     position: absolute;
-    inset: 80px;
-    border-radius: 50%;
-    background: white;
+    object-fit: cover;
+    border-radius: 22px;
+    border: 8px solid #FDEDD6;
+    box-shadow: 0 25px 55px rgba(61, 89, 38, 0.22);
+}
+
+.photo-back {
+    top: 10px;
+    left: 0;
+    width: 320px;
+    height: 320px;
+    transform: rotate(-6deg);
+    z-index: 1;
+}
+
+.photo-front {
+    bottom: 10px;
+    right: 0;
+    width: 250px;
+    height: 250px;
+    transform: rotate(5deg);
+    z-index: 2;
+}
+
+.streak-badge {
+    position: absolute;
+    top: -10px;
+    right: 20px;
+    width: 90px;
+    height: 90px;
+    background: #3D5926;
+    color: #FDEDD6;
+    border-radius: 20px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-size: 130px;
-    box-shadow: 0 30px 70px rgba(61, 89, 38, 0.15);
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.3;
+    transform: rotate(8deg);
+    box-shadow: 0 15px 30px rgba(61, 89, 38, 0.25);
+    z-index: 3;
     animation: float 4s ease-in-out infinite;
 }
 
-.food-card {
-    position: absolute;
-    width: 90px;
-    height: 90px;
-    border-radius: 25px;
-    background: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 45px;
-    box-shadow: 0 20px 40px rgba(61, 89, 38, 0.13);
-}
-
-.card-one {
-    top: 20px;
-    left: 20px;
-    animation: float 3.5s ease-in-out infinite;
-}
-
-.card-two {
-    right: 10px;
-    top: 80px;
-    animation: float 4.2s ease-in-out infinite;
-}
-
-.card-three {
-    left: 20px;
-    bottom: 50px;
-    animation: float 3.8s ease-in-out infinite;
-}
-
-.card-four {
-    right: 20px;
-    bottom: 20px;
-    animation: float 4.5s ease-in-out infinite;
+.streak-icon {
+    font-size: 20px;
+    margin-bottom: 2px;
 }
 
 /* COMMUNITY */
@@ -266,6 +271,141 @@ h1 span {
 
 .avatars span:first-child {
     margin-left: 0;
+}
+
+/* HOW IT WORKS */
+
+.how-it-works {
+    background: #F7E1BE;
+    padding: 90px 8% 100px;
+}
+
+.section-heading {
+    max-width: 640px;
+    margin-bottom: 55px;
+}
+
+.section-tag {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: #8A7048;
+    background: rgba(61, 89, 38, 0.08);
+    padding: 6px 14px;
+    border-radius: 20px;
+    margin-bottom: 22px;
+}
+
+.how-it-works h2,
+.feed-copy h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: clamp(32px, 3.4vw, 44px);
+    line-height: 1.15;
+    letter-spacing: -1.5px;
+    color: #3D5926;
+    margin: 0;
+}
+
+.feed-copy h2 span {
+    color: #FC8F00;
+    font-style: italic;
+    font-weight: 500;
+}
+
+.steps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.step-card {
+    position: relative;
+    background: #FDEDD6;
+    border: 1px solid rgba(61, 89, 38, 0.1);
+    border-radius: 20px;
+    padding: 30px 26px 34px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.step-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(61, 89, 38, 0.12);
+}
+
+.step-number {
+    display: block;
+    font-size: 13px;
+    font-weight: 800;
+    color: #FC8F00;
+    margin-bottom: 18px;
+}
+
+.step-card h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 21px;
+    font-weight: 700;
+    color: #3D5926;
+    margin: 0 0 10px;
+}
+
+.step-card p {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #68795B;
+    margin: 0 0 22px;
+}
+
+.step-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: rgba(252, 143, 0, 0.15);
+    color: #FC8F00;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* FEED SHOWCASE */
+
+.feed-showcase {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 60px;
+    padding: 90px 8% 110px;
+    flex-wrap: wrap;
+}
+
+.feed-copy {
+    max-width: 460px;
+}
+
+.feed-copy p {
+    margin-top: 22px;
+    font-size: 17px;
+    line-height: 1.7;
+    color: #68795B;
+}
+
+.feed-photos {
+    display: flex;
+    gap: 22px;
+}
+
+.feed-photo {
+    width: 320px;
+    height: 320px;
+    border-radius: 22px;
+    object-fit: cover;
+    box-shadow: 0 25px 50px rgba(61, 89, 38, 0.15);
+}
+
+.photo-one,
+.photo-two {
+    transform: none;
 }
 
 /* ANIMATIONS */
@@ -310,12 +450,29 @@ h1 span {
         justify-content: center;
     }
 
-    .food-area {
+    .hero-photos {
         margin-top: 50px;
         transform: scale(0.8);
     }
 
     .community {
+        justify-content: center;
+    }
+
+    .steps-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .feed-showcase {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .feed-copy {
+        max-width: 100%;
+    }
+
+    .feed-photos {
         justify-content: center;
     }
 }
@@ -342,8 +499,24 @@ h1 span {
         letter-spacing: -4px;
     }
 
-    .food-area {
+    .hero-photos {
         transform: scale(0.65);
         margin-top: 10px;
+    }
+
+    .how-it-works,
+    .feed-showcase {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .feed-photo {
+        width: 150px;
+        height: 190px;
+        font-size: 55px;
+    }
+
+    .photo-two {
+        transform: rotate(3deg) translateY(10px);
     }
 }
