@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./Login.css";
 
-function Login({ onBackToHome }) {
+function Login({ onBackToHome, onRegisterClick }) {
     const [showPassword, setShowPassword] = useState(false);
 
     return (
@@ -75,7 +75,7 @@ function Login({ onBackToHome }) {
                     </form>
 
                     <p className="signup-link">
-                        New around here? <a href="#signup">Create an account</a>
+                        New around here? <a href="#signup" onClick={(e) => { e.preventDefault(); onRegisterClick(); }}>Create an account</a>
                     </p>
                 </div>
             </main>

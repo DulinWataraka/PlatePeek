@@ -4,7 +4,7 @@ import pasta2Img from "./assets/pasta2.png";
 import pizzaImg from "./assets/pizza.png";
 import sushiImg from "./assets/sushi.png";
 
-function Homepage({ onLoginClick }) {
+function Homepage({ onLoginClick, onRegisterClick }) {
     return (
         <div className="app">
             <header className="navbar">
@@ -15,7 +15,7 @@ function Homepage({ onLoginClick }) {
 
                 <nav>
                     <button className="login-button" onClick={onLoginClick}>Log in</button>
-                    <button className="join-button">
+                    <button className="join-button" onClick={onRegisterClick}>
                         Join the table <span>→</span>
                     </button>
                 </nav>
@@ -39,7 +39,7 @@ function Homepage({ onLoginClick }) {
                     </p>
 
                     <div className="hero-buttons">
-                        <button className="primary-button">
+                        <button className="primary-button" onClick={onRegisterClick}>
                             Start peeking <span>→</span>
                         </button>
 
