@@ -15,6 +15,7 @@
     flex-direction: column;
     justify-content: space-between;
     padding: 40px 6%;
+    animation: slideInLeft 1.1s ease-out;
 }
 
 .login-side .login-logo {
@@ -288,5 +289,16 @@ input[type="password"]::-ms-clear {
 
     .login-form-side {
         padding: 40px 6% 60px;
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
     }
 }
