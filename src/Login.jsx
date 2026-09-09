@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./Login.css";
 
-function Login({ onBackToHome, onRegisterClick }) {
+function Login({ onBackToHome, onRegisterClick, onLoginSuccess }) {
     const [showPassword, setShowPassword] = useState(false);
 
     return (
@@ -40,7 +40,16 @@ function Login({ onBackToHome, onRegisterClick }) {
                         Your next saved dish is probably closer than you think.
                     </p>
 
-                    <form className="login-form" onSubmit={(e) => e.preventDefault()}>
+                    <form
+                        className="login-form"
+                        onSubmit={(e) => {
+                            e.preventDefault();
+                            onLoginSuccess("guest", {
+                                fullName: "wdwd",
+                                username: "Dulin",
+                            });
+                        }}
+                    >
                         <label htmlFor="email">Email address</label>
                         <input
                             id="email"
