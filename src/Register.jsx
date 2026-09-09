@@ -13,12 +13,34 @@ const SHOP_CATEGORIES = [
     "Other",
 ];
 
-function Register({ onBackToHome, onLoginClick }) {
+function Register({ onBackToHome, onLoginClick, onRegisterSuccess }) {
     const [role, setRole] = useState("guest");
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
     const isGuest = role === "guest";
+
+    function handleGuestSubmit(e) {
+        e.preventDefault();
+        const data = new FormData(e.target);
+        onRegisterSuccess("guest", {
+            fullName: data.get("fullName") || "New Foodie",
+            username: data.get("username") || "newfoodie",
+            email: data.get("email") || "",
+        });
+    }
+
+    function handleHostSubmit(e) {
+        e.preventDefault();
+        const data = new FormData(e.target);
+        onRegisterSuccess("host", {
+            ownerName: data.get("ownerName") || "New Owner",
+            email: data.get("ownerEmail") || "",
+            shopName: data.get("shopName") || "My Shop",
+            shopCategory: data.get("shopCategory") || "Restaurant",
+            shopAddress: data.get("shopAddress") || "",
+        });
+    }
 
     return (
         <div className="register-page">
@@ -97,10 +119,11 @@ function Register({ onBackToHome, onLoginClick }) {
                     </div>
 
                     {isGuest ? (
-                        <form className="register-form" onSubmit={(e) => e.preventDefault()}>
+                        <form className="register-form" onSubmit={handleGuestSubmit}>
                             <label htmlFor="fullName">Full name</label>
                             <input
                                 id="fullName"
+                                name="fullName"
                                 type="text"
                                 placeholder="Mina Park"
                             />
@@ -108,6 +131,7 @@ function Register({ onBackToHome, onLoginClick }) {
                             <label htmlFor="username">Username</label>
                             <input
                                 id="username"
+                                name="username"
                                 type="text"
                                 placeholder="minapark"
                             />
@@ -115,6 +139,7 @@ function Register({ onBackToHome, onLoginClick }) {
                             <label htmlFor="email">Email address</label>
                             <input
                                 id="email"
+                                name="email"
                                 type="email"
                                 placeholder="you@example.com"
                             />
@@ -123,6 +148,7 @@ function Register({ onBackToHome, onLoginClick }) {
                             <div className="password-field">
                                 <input
                                     id="password"
+                                    name="password"
                                     type={showPassword ? "text" : "password"}
                                     placeholder="At least 6 characters"
                                 />
@@ -140,6 +166,7 @@ function Register({ onBackToHome, onLoginClick }) {
                             <div className="password-field">
                                 <input
                                     id="confirmPassword"
+                                    name="confirmPassword"
                                     type={showConfirmPassword ? "text" : "password"}
                                     placeholder="Re-enter your password"
                                 />
@@ -158,10 +185,11 @@ function Register({ onBackToHome, onLoginClick }) {
                             </button>
                         </form>
                     ) : (
-                        <form className="register-form" onSubmit={(e) => e.preventDefault()}>
+                        <form className="register-form" onSubmit={handleHostSubmit}>
                             <label htmlFor="ownerName">Owner full name</label>
                             <input
                                 id="ownerName"
+                                name="ownerName"
                                 type="text"
                                 placeholder="Mina Park"
                             />
@@ -169,6 +197,7 @@ function Register({ onBackToHome, onLoginClick }) {
                             <label htmlFor="ownerEmail">Email address</label>
                             <input
                                 id="ownerEmail"
+                                name="ownerEmail"
                                 type="email"
                                 placeholder="you@example.com"
                             />
@@ -177,6 +206,7 @@ function Register({ onBackToHome, onLoginClick }) {
                             <div className="password-field">
                                 <input
                                     id="ownerPassword"
+                                    name="ownerPassword"
                                     type={showPassword ? "text" : "password"}
                                     placeholder="At least 6 characters"
                                 />
@@ -194,6 +224,7 @@ function Register({ onBackToHome, onLoginClick }) {
                             <div className="password-field">
                                 <input
                                     id="ownerConfirmPassword"
+                                    name="ownerConfirmPassword"
                                     type={showConfirmPassword ? "text" : "password"}
                                     placeholder="Re-enter your password"
                                 />
@@ -210,12 +241,13 @@ function Register({ onBackToHome, onLoginClick }) {
                             <label htmlFor="shopName">Shop name</label>
                             <input
                                 id="shopName"
+                                name="shopName"
                                 type="text"
                                 placeholder="Mina's Kitchen"
                             />
 
                             <label htmlFor="shopCategory">Shop category</label>
-                            <select id="shopCategory" defaultValue="">
+                            <select id="shopCategory" name="shopCategory" defaultValue="">
                                 <option value="" disabled>
                                     Select a category
                                 </option>
@@ -229,6 +261,7 @@ function Register({ onBackToHome, onLoginClick }) {
                             <label htmlFor="shopAddress">Shop address</label>
                             <input
                                 id="shopAddress"
+                                name="shopAddress"
                                 type="text"
                                 placeholder="123 Galle Road, Colombo"
                             />
