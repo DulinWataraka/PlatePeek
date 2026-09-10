@@ -1,0 +1,489 @@
+.pp-app {
+    min-height: 100vh;
+    display: flex;
+    background: #F5E6C8;
+    font-family: Arial, sans-serif;
+    color: #3D5926;
+}
+
+button.pp-nav-item,
+button.pp-logout,
+button.pp-edit-btn,
+button.pp-avatar-edit,
+button.pp-tab {
+    font-family: inherit;
+    cursor: pointer;
+}
+
+/* ---------------- SIDEBAR ---------------- */
+
+.pp-sidebar {
+    width: 230px;
+    flex-shrink: 0;
+    background: #FCF6E8;
+    border-right: 1px solid rgba(61, 89, 38, 0.08);
+    padding: 26px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.pp-sidebar-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 19px;
+    color: #3D5926;
+    cursor: pointer;
+    padding: 0 6px;
+}
+
+
+.pp-logo-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    background: #FC8F00;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+}
+
+.pp-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.pp-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border: none;
+    background: transparent;
+    color: #5B6B4A;
+    font-size: 15px;
+    font-weight: 600;
+    text-align: left;
+    padding: 11px 14px;
+    border-radius: 12px;
+    transition: background 0.2s ease;
+}
+
+.pp-nav-item:hover {
+    background: rgba(61, 89, 38, 0.06);
+}
+
+.pp-nav-icon {
+    display: flex;
+    color: #8A6A2F;
+}
+
+.pp-nav-item-active {
+    background: #F0B84B;
+    color: #2E3A16;
+}
+
+.pp-nav-item-active .pp-nav-icon {
+    color: #2E3A16;
+}
+
+.pp-nav-item-active:hover {
+    background: #F0B84B;
+}
+
+.pp-logout {
+    margin-top: auto;
+    border: none;
+    background: transparent;
+    color: #92937f;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: left;
+    padding: 8px 14px;
+}
+
+.pp-logout:hover {
+    color: #3D5926;
+}
+
+/* ---------------- MAIN / CARD ---------------- */
+
+.pp-main {
+    flex: 1;
+    padding: 0 0 60px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.pp-card {
+    position: relative;
+    width: 100%;
+    max-width: none;
+    background:  #FCF4DF;
+    border-radius: 0;
+    box-shadow: none;
+    padding-bottom: 40px;
+    overflow: visible;
+}
+
+.doodle {
+    position: absolute;
+    opacity: 0.9;
+    pointer-events: none;
+}
+
+.doodle-top-right {
+    top: 210px;
+    right: 26px;
+}
+
+.doodle-left {
+    top: 490px;
+    left: -30px;
+}
+
+.doodle-right {
+    top: 460px;
+    right: -6px;
+}
+
+/* ---------------- BANNER ---------------- */
+
+.pp-banner {
+    height: 150px;
+    margin: 18px 18px 0;
+    border-radius: 20px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.pp-banner-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(100deg, rgba(38, 46, 18, 0.88) 0%, rgba(38, 46, 18, 0.75) 32%, rgba(38, 46, 18, 0.1) 60%, rgba(38, 46, 18, 0) 78%);
+    display: flex;
+    align-items: center;
+    padding-left: 30px;
+}
+
+.pp-banner-script {
+    font-family: 'Caveat', 'Segoe Script', cursive;
+    color: #FBF3E4;
+    font-size: 26px;
+    line-height: 1.35;
+    margin: 0;
+    transform: rotate(-2deg);
+}
+
+/* ---------------- IDENTITY ---------------- */
+
+.pp-identity {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0 24px;
+}
+
+.pp-avatar-wrap {
+    position: relative;
+    margin-top: -46px;
+}
+
+.pp-avatar {
+    width: 92px;
+    height: 92px;
+    border-radius: 50%;
+    background: #4C6B2E;
+    border: 5px solid #FCF6E8;
+    color: #FCF6E8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Fraunces', serif;
+    font-size: 34px;
+    font-weight: 600;
+}
+
+.pp-avatar-edit {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #FC8F00;
+    border: 2px solid #FCF6E8;
+    color: #3D5926;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pp-name-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 14px;
+}
+
+.pp-name {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 24px;
+    letter-spacing: normal;
+    color: #3D5926;
+    margin: 0;
+}
+
+.pp-role-pill {
+    font-size: 12px;
+    font-weight: 700;
+    color: #5B6B4A;
+    background: rgba(61, 89, 38, 0.08);
+    border: 1px solid rgba(61, 89, 38, 0.15);
+    padding: 4px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+}
+
+.pp-username {
+    color: #8A937D;
+    font-size: 14px;
+    margin: 2px 0 0;
+}
+
+.pp-edit-btn {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: 16px;
+    border: 1.5px solid #3D5926;
+    background: transparent;
+    color: #3D5926;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 9px 18px;
+    border-radius: 30px;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.pp-edit-btn:hover {
+    background: #3D5926;
+    color: #FCF6E8;
+}
+
+.pp-stats {
+    display: flex;
+    gap: 40px;
+    margin-top: 22px;
+}
+
+.pp-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+.pp-stat strong {
+    font-size: 20px;
+    color: #3D5926;
+    font-weight: 800;
+}
+
+.pp-stat span {
+    font-size: 11px;
+    letter-spacing: 0.4px;
+    color: #9AA48A;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.pp-meta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #7C8A6B;
+    font-size: 13.5px;
+    margin: 16px 0 0;
+}
+
+.pp-meta svg {
+    color: #E0685C;
+}
+
+.pp-dot {
+    margin: 0 2px;
+}
+
+.pp-bio {
+    color: #556246;
+    font-size: 14.5px;
+    margin: 12px 0 0;
+    max-width: 480px;
+}
+
+/* ---------------- LEVEL CARD ---------------- */
+
+.pp-level-card {
+    width: 100%;
+    max-width: 500px;
+    background: #FFFBF2;
+    border: 1px solid rgba(61, 89, 38, 0.12);
+    border-radius: 16px;
+    padding: 16px 20px;
+    margin-top: 20px;
+}
+
+.pp-level-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.pp-level-title {
+    font-weight: 800;
+    font-size: 14.5px;
+    color: #3D5926;
+}
+
+.pp-streak-pill {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #C9670E;
+}
+
+.pp-progress-track {
+    height: 9px;
+    border-radius: 20px;
+    background: #F0DFC0;
+    overflow: hidden;
+}
+
+.pp-progress-fill {
+    height: 100%;
+    border-radius: 20px;
+    background: linear-gradient(90deg, #FCAA3E, #FC8F00);
+}
+
+.pp-level-bottom {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    font-size: 12px;
+    color: #9AA48A;
+    font-weight: 600;
+}
+
+/* ---------------- BADGES ---------------- */
+
+.pp-badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 18px;
+}
+
+.pp-badge {
+    font-size: 13px;
+    font-weight: 700;
+    color: #5B6B4A;
+    background: #FFFBF2;
+    border: 1px solid rgba(61, 89, 38, 0.12);
+    padding: 8px 16px;
+    border-radius: 30px;
+}
+
+/* ---------------- TABS ---------------- */
+
+.pp-tabs {
+    display: flex;
+    gap: 34px;
+    margin-top: 28px;
+    border-bottom: 1px solid rgba(61, 89, 38, 0.12);
+    width: 100%;
+    max-width: 560px;
+    justify-content: center;
+}
+
+.pp-tab {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    border: none;
+    background: transparent;
+    color: #9AA48A;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 0 2px 12px;
+    border-bottom: 2.5px solid transparent;
+}
+
+.pp-tab-active {
+    color: #3D5926;
+    border-bottom-color: #FC8F00;
+}
+
+/* ---------------- PLATES GRID ---------------- */
+
+.pp-plates-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    padding: 22px 24px 0;
+}
+
+.pp-plates-grid img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 16px;
+}
+
+/* ---------------- RESPONSIVE ---------------- */
+
+@media (max-width: 860px) {
+    .pp-sidebar {
+        width: 76px;
+        align-items: center;
+        padding: 20px 10px;
+    }
+
+    .pp-sidebar-logo span:last-child,
+    .pp-nav-item span:last-child,
+    .pp-logout {
+        display: none;
+    }
+
+    .pp-nav-item {
+        justify-content: center;
+        padding: 12px;
+    }
+
+    .doodle {
+        display: none;
+    }
+}
+
+@media (max-width: 600px) {
+    .pp-main {
+        padding: 16px;
+    }
+
+    .pp-plates-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .pp-stats {
+        gap: 26px;
+    }
+}

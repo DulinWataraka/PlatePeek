@@ -2,6 +2,7 @@ import { useState } from "react";
 import Homepage from "./Homepage.jsx";
 import Login from "./Login.jsx";
 import Register from "./Register.jsx";
+import Profile from "./Profile.jsx";
 
 
 function App() {
