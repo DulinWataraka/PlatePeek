@@ -3,7 +3,7 @@ import bannerImg from "./assets/foodbanner.jpg";
 import plate1 from "./assets/pasta.png";
 import plate2 from "./assets/pizza.png";
 import plate3 from "./assets/sushi.png";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 /* ---------- tiny inline icon set (kept consistent with Homepage's line-icon style) ---------- */
 
@@ -195,12 +195,63 @@ function Sidebar({ onBackToHome, onLogout }) {
 
 /* ---------- main profile page ---------- */
 
-function Profile({ account, onBackToHome, onLogout }) {
+function Profile({ account, onBackToHome, onLogout, onAccountUpdate }) {
     const [activeTab, setActiveTab] = useState("plates");
+    const [showEditProfile, setShowEditProfile] = useState(false);
 
     const isHost = account?.role === "host";
     const displayName = account?.fullName || account?.ownerName || "New Foodie";
-    const username = account?.username || (account?.shopName ? account.shopName.toLowerCase().replace(/\s+/g, "") : "newfoodie");
+    const username = account?.username || (account?.shopName
+        ? account.shopName.toLowerCase().replace(/\s+/g, "")
+        : "newfoodie");
+    const bio = account?.bio || "Still deciding on my food personality. Ask me about the last thing I ate.";
+    const profileImage = account?.profileImage || "";
+    const currentBanner = account?.bannerImage || "";
+
+    const profileInputRef = useRef(null);
+    const bannerInputRef = useRef(null);
+
+    function updateAccount(changes) {
+        onAccountUpdate?.(changes);
+    }
+
+    function handleProfileImageChange(e) {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = () => updateAccount({ profileImage: reader.result });
+        reader.readAsDataURL(file);
+        e.target.value = "";
+    }
+
+    function handleBannerChange(e) {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = () => updateAccount({ bannerImage: reader.result });
+        reader.readAsDataURL(file);
+        e.target.value = "";
+    }
+
+    function saveProfile(e) {
+        e.preventDefault();
+        const data = new FormData(e.currentTarget);
+
+        const name = data.get("displayName")?.trim() || displayName;
+        const newUsername = data.get("username")?.trim().replace(/^@+/, "") || username;
+        const newBio = data.get("bio")?.trim() || "";
+
+        updateAccount({
+            ...(isHost ? { ownerName: name } : { fullName: name }),
+            username: newUsername,
+            bio: newBio,
+        });
+
+        setShowEditProfile(false);
+    }
+
     const initial = displayName.trim().charAt(0).toUpperCase() || "N";
 
     return (
@@ -213,18 +264,55 @@ function Profile({ account, onBackToHome, onLogout }) {
                     <TomatoDoodle className="doodle-left" />
                     <SpoonDoodle className="doodle-right" />
 
-                    <div className="pp-banner" style={{ backgroundImage: `url(${bannerImg})` }}>
+                    <div
+                        className="pp-banner"
+                        style={{
+                            backgroundImage: `url(${currentBanner || bannerImg})`,
+                        }}
+                    >
                         <div className="pp-banner-overlay">
                             <p className="pp-banner-script">
                                 Good food<br />better moods
                             </p>
+
+                            {/* Banner editing is intentionally separate from Edit Profile. */}
+                            <button
+                                type="button"
+                                className="pp-banner-edit"
+                                onClick={() => bannerInputRef.current?.click()}
+                            >
+                                <CameraIcon /> Change banner
+                            </button>
+
+                            <input
+                                ref={bannerInputRef}
+                                className="pp-hidden-file-input"
+                                type="file"
+                                accept="image/*"
+                                onChange={handleBannerChange}
+                            />
                         </div>
                     </div>
 
                     <div className="pp-identity">
                         <div className="pp-avatar-wrap">
-                            <div className="pp-avatar">{initial}</div>
+                            {profileImage ? (
+                                <img
+                                    className="pp-avatar pp-avatar-image"
+                                    src={profileImage}
+                                    alt={`${displayName} profile`}
+                                />
+                            ) : (
+                                <div className="pp-avatar">{initial}</div>
+                            )}
 
+                            <input
+                                ref={profileInputRef}
+                                className="pp-hidden-file-input"
+                                type="file"
+                                accept="image/*"
+                                onChange={handleProfileImageChange}
+                            />
                         </div>
 
                         <div className="pp-name-row">
@@ -233,7 +321,11 @@ function Profile({ account, onBackToHome, onLogout }) {
                         </div>
                         <p className="pp-username">@{username}</p>
 
-                        <button type="button" className="pp-edit-btn">
+                        <button
+                            type="button"
+                            className="pp-edit-btn"
+                            onClick={() => setShowEditProfile(true)}
+                        >
                             <PencilIcon /> Edit profile
                         </button>
 
@@ -256,9 +348,7 @@ function Profile({ account, onBackToHome, onLogout }) {
                             <PinIcon /> Colombo, Sri Lanka <span className="pp-dot">·</span> Member since 2025
                         </p>
 
-                        <p className="pp-bio">
-                            Still deciding on my food personality. Ask me about the last thing I ate.
-                        </p>
+                        <p className="pp-bio">{bio}</p>
 
                         <div className="pp-level-card">
                             <div className="pp-level-top">
@@ -290,10 +380,10 @@ function Profile({ account, onBackToHome, onLogout }) {
                             </button>
                             <button
                                 type="button"
-                                className={`pp-tab ${activeTab === "saved" ? "pp-tab-active" : ""}`}
-                                onClick={() => setActiveTab("saved")}
+                                className={`pp-tab ${activeTab === "cravings" ? "pp-tab-active" : ""}`}
+                                onClick={() => setActiveTab("cravings")}
                             >
-                                <BookmarkIcon /> Saved
+                                <BookmarkIcon /> Cravings
                             </button>
                             <button
                                 type="button"
@@ -312,8 +402,99 @@ function Profile({ account, onBackToHome, onLogout }) {
                     </div>
                 </div>
             </main>
+
+            {showEditProfile && (
+                <div
+                    className="pp-modal-backdrop"
+                    onMouseDown={(e) => {
+                        if (e.target === e.currentTarget) setShowEditProfile(false);
+                    }}
+                >
+                    <form className="pp-edit-modal" onSubmit={saveProfile}>
+                        <div className="pp-modal-header">
+                            <div>
+                                <span className="pp-modal-eyebrow">PROFILE SETTINGS</span>
+                                <h2>Edit profile</h2>
+                            </div>
+                            <button
+                                type="button"
+                                className="pp-modal-close"
+                                onClick={() => setShowEditProfile(false)}
+                                aria-label="Close edit profile"
+                            >
+                                ×
+                            </button>
+                        </div>
+
+                        <div className="pp-modal-picture-section">
+                            <div className="pp-modal-avatar">
+                                {profileImage ? (
+                                    <img src={profileImage} alt="" />
+                                ) : (
+                                    initial
+                                )}
+                            </div>
+                            <div>
+                                <strong>Profile picture</strong>
+                                <p>Choose a new picture from your computer.</p>
+                                <button
+                                    type="button"
+                                    className="pp-picture-btn"
+                                    onClick={() => profileInputRef.current?.click()}
+                                >
+                                    <CameraIcon /> Change picture
+                                </button>
+                            </div>
+                        </div>
+
+                        <div className="pp-modal-fields">
+                            <label htmlFor="profile-display-name">Name</label>
+                            <input
+                                id="profile-display-name"
+                                name="displayName"
+                                type="text"
+                                defaultValue={displayName}
+                                maxLength="50"
+                                required
+                            />
+
+                            <label htmlFor="profile-username">Username</label>
+                            <input
+                                id="profile-username"
+                                name="username"
+                                type="text"
+                                defaultValue={username}
+                                maxLength="30"
+                                required
+                            />
+
+                            <label htmlFor="profile-bio">About</label>
+                            <textarea
+                                id="profile-bio"
+                                name="bio"
+                                defaultValue={bio}
+                                maxLength="160"
+                                rows="4"
+                                placeholder="Tell people a little about yourself..."
+                            />
+                        </div>
+
+                        <div className="pp-modal-actions">
+                            <button
+                                type="button"
+                                className="pp-cancel-btn"
+                                onClick={() => setShowEditProfile(false)}
+                            >
+                                Cancel
+                            </button>
+                            <button type="submit" className="pp-save-btn">
+                                Save changes
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            )}
         </div>
     );
 }
-
 export default Profile;

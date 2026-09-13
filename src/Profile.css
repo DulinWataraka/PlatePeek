@@ -487,3 +487,343 @@ button.pp-tab {
         gap: 26px;
     }
 }
+
+
+/* ---------------- PROFILE / BANNER EDITING ---------------- */
+
+.pp-hidden-file-input {
+    display: none;
+}
+
+.pp-avatar-image {
+    object-fit: cover;
+    display: block;
+}
+
+.pp-banner-edit {
+    position: absolute;
+    right: 18px;
+    bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    border: 1px solid rgba(255, 251, 242, 0.75);
+    background: rgba(30, 42, 19, 0.72);
+    backdrop-filter: blur(6px);
+    color: #FFFBF2;
+    padding: 9px 14px;
+    border-radius: 22px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.pp-banner-edit:hover {
+    background: rgba(61, 89, 38, 0.92);
+    transform: translateY(-1px);
+}
+
+/* ---------------- EDIT PROFILE MODAL ---------------- */
+
+.pp-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(35, 43, 23, 0.58);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    animation: pp-fade-in 0.22s ease-out;
+}
+
+.pp-edit-modal {
+    position: relative;
+    width: min(100%, 510px);
+    max-height: calc(100vh - 48px);
+    overflow-y: auto;
+    background: linear-gradient(145deg, #fffaf0 0%, #FCF4DF 72%, #f8e8c9 100%);
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    border-radius: 30px;
+    box-shadow: 0 30px 90px rgba(35, 43, 23, 0.32), 0 8px 25px rgba(61, 89, 38, 0.12);
+    padding: 30px;
+    animation: pp-modal-up 0.28s cubic-bezier(.22,.8,.25,1);
+}
+
+.pp-edit-modal::before {
+    content: "";
+    position: absolute;
+    top: -35px;
+    right: -35px;
+    width: 125px;
+    height: 125px;
+    border-radius: 50%;
+    background: rgba(240, 184, 75, 0.22);
+    pointer-events: none;
+}
+
+.pp-edit-modal::after {
+    content: "✦";
+    position: absolute;
+    top: 22px;
+    right: 74px;
+    color: rgba(224, 104, 92, 0.55);
+    font-size: 18px;
+    transform: rotate(12deg);
+    pointer-events: none;
+}
+
+.pp-modal-header {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 22px;
+}
+
+.pp-modal-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: #C9670E;
+    background: rgba(252, 143, 0, 0.10);
+    border: 1px solid rgba(252, 143, 0, 0.16);
+    border-radius: 20px;
+    padding: 5px 10px;
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+    margin-bottom: 9px;
+}
+
+.pp-modal-header h2 {
+    margin: 0;
+    color: #3D5926;
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 32px;
+    line-height: 1.05;
+    letter-spacing: -0.4px;
+}
+
+.pp-modal-close {
+    position: relative;
+    z-index: 2;
+    width: 38px;
+    height: 38px;
+    flex: 0 0 38px;
+    border: 1px solid rgba(61, 89, 38, 0.10);
+    border-radius: 50%;
+    background: rgba(255, 251, 242, 0.78);
+    color: #52633B;
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.pp-modal-close:hover {
+    background: #F0B84B;
+    transform: rotate(8deg) scale(1.04);
+}
+
+.pp-modal-picture-section {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 17px;
+    background: rgba(255, 251, 242, 0.78);
+    border: 1px solid rgba(61, 89, 38, 0.10);
+    border-radius: 20px;
+    padding: 15px;
+    margin-bottom: 24px;
+    box-shadow: 0 8px 22px rgba(61, 89, 38, 0.05);
+}
+
+.pp-modal-avatar {
+    width: 70px;
+    height: 70px;
+    flex: 0 0 70px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: linear-gradient(145deg, #58783a, #3D5926);
+    border: 4px solid #fffaf0;
+    box-shadow: 0 5px 14px rgba(61, 89, 38, 0.18);
+    color: #FCF6E8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.pp-modal-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.pp-modal-picture-section strong {
+    color: #3D5926;
+    font-size: 14px;
+}
+
+.pp-modal-picture-section p {
+    margin: 4px 0 10px;
+    color: #7C8A6B;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.pp-picture-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border: none;
+    background: #F0B84B;
+    color: #3D5926;
+    font-size: 12px;
+    font-weight: 900;
+    padding: 7px 11px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: transform 0.18s ease, background 0.18s ease;
+}
+
+.pp-picture-btn:hover {
+    background: #F5C65F;
+    transform: translateY(-1px);
+}
+
+.pp-modal-fields {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.pp-modal-fields label {
+    color: #3D5926;
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 0.2px;
+    margin: 0 0 7px 3px;
+}
+
+.pp-modal-fields input,
+.pp-modal-fields textarea {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1.5px solid #E5D6B7;
+    background: rgba(255, 251, 242, 0.88);
+    color: #3D5926;
+    border-radius: 14px;
+    padding: 13px 15px;
+    font: inherit;
+    font-size: 14px;
+    outline: none;
+    margin-bottom: 16px;
+    resize: vertical;
+    transition: border 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+}
+
+.pp-modal-fields input::placeholder,
+.pp-modal-fields textarea::placeholder {
+    color: #A4A48F;
+}
+
+.pp-modal-fields input:focus,
+.pp-modal-fields textarea:focus {
+    border-color: #6D873D;
+    box-shadow: 0 0 0 4px rgba(109, 135, 61, 0.10);
+    transform: translateY(-1px);
+}
+
+.pp-modal-fields textarea {
+    min-height: 94px;
+}
+
+.pp-modal-actions {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 4px;
+    padding-top: 4px;
+}
+
+.pp-cancel-btn,
+.pp-save-btn {
+    border-radius: 24px;
+    padding: 12px 20px;
+    font-size: 13px;
+    font-weight: 900;
+    cursor: pointer;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+}
+
+.pp-cancel-btn {
+    border: 1px solid rgba(61, 89, 38, 0.16);
+    background: rgba(255, 251, 242, 0.7);
+    color: #5B6B4A;
+}
+
+.pp-save-btn {
+    border: none;
+    background: linear-gradient(135deg, #3D5926, #526F31);
+    color: #FCF6E8;
+    box-shadow: 0 7px 18px rgba(61, 89, 38, 0.22);
+}
+
+.pp-cancel-btn:hover,
+.pp-save-btn:hover {
+    transform: translateY(-2px);
+}
+
+.pp-cancel-btn:hover {
+    background: #fffaf0;
+}
+
+.pp-save-btn:hover {
+    background: linear-gradient(135deg, #30471D, #46632A);
+    box-shadow: 0 10px 22px rgba(61, 89, 38, 0.27);
+}
+
+@keyframes pp-fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes pp-modal-up {
+    from {
+        transform: translateY(10px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@media (max-width: 600px) {
+    .pp-banner-edit {
+        right: 12px;
+        bottom: 12px;
+        padding: 8px 11px;
+    }
+
+    .pp-edit-modal {
+        padding: 20px;
+        border-radius: 20px;
+    }
+
+    .pp-modal-picture-section {
+        align-items: flex-start;
+    }
+}
