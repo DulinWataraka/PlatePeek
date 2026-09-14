@@ -119,40 +119,6 @@ function TagIcon() {
     );
 }
 
-/* ---------- decorative doodles (line-art, purely visual) ---------- */
-
-function WheatDoodle({ className }) {
-    return (
-        <svg className={`doodle ${className || ""}`} width="46" height="90" viewBox="0 0 46 90" fill="none" stroke="#D8B888" strokeWidth="1.6" strokeLinecap="round">
-            <path d="M23 6v78" />
-            <path d="M23 16c-7-3-10-9-9-15" /><path d="M23 16c7-3 10-9 9-15" />
-            <path d="M23 32c-7-3-10-9-9-15" /><path d="M23 32c7-3 10-9 9-15" />
-            <path d="M23 48c-7-3-10-9-9-15" /><path d="M23 48c7-3 10-9 9-15" />
-            <path d="M23 64c-7-3-10-9-9-15" /><path d="M23 64c7-3 10-9 9-15" />
-        </svg>
-    );
-}
-
-function TomatoDoodle({ className }) {
-    return (
-        <svg className={`doodle ${className || ""}`} width="60" height="60" viewBox="0 0 60 60" fill="none" stroke="#D8B888" strokeWidth="1.6" strokeLinecap="round">
-            <path d="M30 14c11 0 19 8 19 19s-8 19-19 19-19-8-19-19 8-19 19-19Z" />
-            <path d="M30 14c-1-5 1-8 4-10" />
-            <path d="M30 14c1-4-1-7-5-9" />
-            <path d="M22 26c3-2 13-2 16 0" />
-        </svg>
-    );
-}
-
-function SpoonDoodle({ className }) {
-    return (
-        <svg className={`doodle ${className || ""}`} width="40" height="90" viewBox="0 0 40 90" fill="none" stroke="#D8B888" strokeWidth="1.6" strokeLinecap="round">
-            <ellipse cx="20" cy="16" rx="11" ry="14" />
-            <path d="M20 30v54" />
-        </svg>
-    );
-}
-
 /* ---------- sidebar ---------- */
 
 function Sidebar({ onBackToHome, onLogout }) {
@@ -260,10 +226,6 @@ function Profile({ account, onBackToHome, onLogout, onAccountUpdate }) {
 
             <main className="pp-main">
                 <div className="pp-card">
-                    <WheatDoodle className="doodle-top-right" />
-                    <TomatoDoodle className="doodle-left" />
-                    <SpoonDoodle className="doodle-right" />
-
                     <div
                         className="pp-banner"
                         style={{

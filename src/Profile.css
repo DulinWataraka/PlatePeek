@@ -130,27 +130,6 @@ button.pp-tab {
     overflow: visible;
 }
 
-.doodle {
-    position: absolute;
-    opacity: 0.9;
-    pointer-events: none;
-}
-
-.doodle-top-right {
-    top: 210px;
-    right: 26px;
-}
-
-.doodle-left {
-    top: 490px;
-    left: -30px;
-}
-
-.doodle-right {
-    top: 460px;
-    right: -6px;
-}
-
 /* ---------------- BANNER ---------------- */
 
 .pp-banner {
@@ -467,10 +446,6 @@ button.pp-tab {
     .pp-nav-item {
         justify-content: center;
         padding: 12px;
-    }
-
-    .doodle {
-        display: none;
     }
 }
 
