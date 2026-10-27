@@ -149,14 +149,50 @@
 
 /* ---------- HEADER CARD ---------- */
 
+.pf-header-card {
+    border-radius: 22px;
+    border: 1.5px solid #E7D9BC;
+    background: #F5E4C3;
+    overflow: hidden;
+}
+
+.pf-banner {
+    position: relative;
+    height: 180px;
+    background: linear-gradient(135deg, #3D5926 0%, #5E8240 60%, #FC8F00 130%);
+    background-size: cover;
+    background-position: center;
+}
+
+.pf-banner-actions {
+    position: absolute;
+    right: 14px;
+    bottom: 14px;
+    display: flex;
+    gap: 8px;
+}
+
+.pf-banner-btn {
+    border: none;
+    border-radius: 30px;
+    padding: 9px 16px;
+    background: rgba(253, 237, 214, 0.95);
+    color: #3D5926;
+    font-size: 13px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.pf-banner-btn:hover {
+    transform: translateY(-2px);
+}
+
 .pf-header {
     display: flex;
     align-items: center;
     gap: 28px;
     padding: 32px;
-    border-radius: 22px;
-    border: 1.5px solid #E7D9BC;
-    background: #F5E4C3;
 }
 
 .pf-avatar {
@@ -403,6 +439,11 @@
 }
 
 .pf-edit-side {
+    position: sticky;
+    top: 0;
+    align-self: flex-start;
+    height: 100vh;
+    overflow: hidden;
     flex: 0 0 38%;
     max-width: 38%;
     background: #3D5926;
@@ -595,6 +636,9 @@
     }
 
     .pf-edit-side {
+        position: static;
+        height: auto;
+        overflow: visible;
         flex: none;
         max-width: 100%;
         padding: 30px 6%;

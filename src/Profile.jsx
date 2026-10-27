@@ -49,11 +49,15 @@ function PlateCard({ plate }) {
     );
 }
 
-function Sidebar({ isHost, onBackToHome, onEdit, onLogout }) {
+function Sidebar({ onBackToHome, onLogout }) {
     const items = [
         { key: "home", icon: "🏠", label: "Home", onClick: onBackToHome },
         { key: "profile", icon: "👤", label: "Profile", active: true },
-        { key: "edit", icon: "✏️", label: isHost ? "Edit shop" : "Edit profile", onClick: onEdit },
+        { key: "explore", icon: "🧭", label: "Explore" },
+        { key: "challenges", icon: "🏆", label: "Challenges" },
+        { key: "leaderboard", icon: "📊", label: "Leaderboard" },
+        { key: "notifications", icon: "🔔", label: "Notifications" },
+        { key: "create", icon: "➕", label: "Create" },
     ];
 
     return (
@@ -86,7 +90,7 @@ function Sidebar({ isHost, onBackToHome, onEdit, onLogout }) {
 
 /* ---------- PROFILE VIEW ---------- */
 
-function ProfileView({ account, onBackToHome, onLogout, onEdit }) {
+function ProfileView({ account, onBackToHome, onLogout, onEdit, onAccountUpdate }) {
     const isHost = account.role === "host";
 
     const guestName = account.fullName || "New Foodie";
@@ -116,48 +120,74 @@ function ProfileView({ account, onBackToHome, onLogout, onEdit }) {
             { value: 94, label: "Following" },
         ];
 
-    const details = isHost
-        ? [
-            { label: "Category", value: account.shopCategory || "Restaurant" },
-            { label: "Address", value: account.shopAddress || "Not added yet" },
-            { label: "Email", value: account.email || "Not added yet" },
-        ]
-        : [{ label: "Email", value: account.email || "Not added yet" }];
+    const details = [
+        { label: "Category", value: account.shopCategory || "Restaurant" },
+        { label: "Address", value: account.shopAddress || "Not added yet" },
+        { label: "Email", value: account.email || "Not added yet" },
+    ];
 
     const items = isHost ? HOST_DISHES : GUEST_PLATES;
 
+    function handleBannerChange(e) {
+        const file = e.target.files?.[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = () => onAccountUpdate({ bannerImage: reader.result });
+        reader.readAsDataURL(file);
+        e.target.value = "";
+    }
+
     return (
         <div className="pf-page">
-            <Sidebar
-                isHost={isHost}
-                onBackToHome={onBackToHome}
-                onEdit={onEdit}
-                onLogout={onLogout}
-            />
+            <Sidebar onBackToHome={onBackToHome} onLogout={onLogout} />
 
             <main className="pf-main">
                 {/* HEADER */}
-                <section className="pf-header">
-                    <div className="pf-avatar">
-                        {account.profileImage ? (
-                            <img src={account.profileImage} alt={`${title} profile`} />
-                        ) : (
-                            <span>{initial}</span>
-                        )}
-                    </div>
+                <section className="pf-header-card">
+                    {isHost && (
+                        <div
+                            className="pf-banner"
+                            style={account.bannerImage ? { backgroundImage: `url(${account.bannerImage})` } : undefined}
+                        >
+                            <div className="pf-banner-actions">
+                                <label className="pf-banner-btn">
+                                    📷 {account.bannerImage ? "Change banner" : "Add banner"}
+                                    <input type="file" accept="image/*" onChange={handleBannerChange} hidden />
+                                </label>
+                                {account.bannerImage && (
+                                    <button
+                                        type="button"
+                                        className="pf-banner-btn"
+                                        onClick={() => onAccountUpdate({ bannerImage: "" })}
+                                    >
+                                        Remove
+                                    </button>
+                                )}
+                            </div>
+                        </div>
+                    )}
+                    <div className="pf-header">
+                        <div className="pf-avatar">
+                            {account.profileImage ? (
+                                <img src={account.profileImage} alt={`${title} profile`} />
+                            ) : (
+                                <span>{initial}</span>
+                            )}
+                        </div>
 
-                    <div className="pf-header-info">
+                        <div className="pf-header-info">
                         <span className="pf-role-badge">
                             {isHost ? "🧑‍🍳 HOST" : "🍴 GUEST"}
                         </span>
-                        <h1>{title}</h1>
-                        <p className="pf-subtitle">{subtitle}</p>
-                        <p className="pf-bio">{bio}</p>
-                    </div>
+                            <h1>{title}</h1>
+                            <p className="pf-subtitle">{subtitle}</p>
+                            <p className="pf-bio">{bio}</p>
+                        </div>
 
-                    <button type="button" className="pf-edit-btn" onClick={onEdit}>
-                        Edit profile
-                    </button>
+                        <button type="button" className="pf-edit-btn" onClick={onEdit}>
+                            Edit profile
+                        </button>
+                    </div>
                 </section>
 
                 {/* STATS */}
@@ -170,20 +200,20 @@ function ProfileView({ account, onBackToHome, onLogout, onEdit }) {
                     ))}
                 </section>
 
-                {/* DETAILS */}
-                <section className="pf-details">
-                    <span className="pf-eyebrow">
-                        {isHost ? "SHOP DETAILS" : "ACCOUNT"}
-                    </span>
-                    <dl>
-                        {details.map((d) => (
-                            <div key={d.label} className="pf-detail-row">
-                                <dt>{d.label}</dt>
-                                <dd>{d.value}</dd>
-                            </div>
-                        ))}
-                    </dl>
-                </section>
+                {/* DETAILS (hosts only) */}
+                {isHost && (
+                    <section className="pf-details">
+                        <span className="pf-eyebrow">SHOP DETAILS</span>
+                        <dl>
+                            {details.map((d) => (
+                                <div key={d.label} className="pf-detail-row">
+                                    <dt>{d.label}</dt>
+                                    <dd>{d.value}</dd>
+                                </div>
+                            ))}
+                        </dl>
+                    </section>
+                )}
 
                 {/* PLATES / MENU */}
                 <section className="pf-content">
@@ -375,6 +405,7 @@ function Profile({ account, onBackToHome, onLogout, onAccountUpdate }) {
             onBackToHome={onBackToHome}
             onLogout={onLogout}
             onEdit={() => setEditing(true)}
+            onAccountUpdate={onAccountUpdate}
         />
     );
 }
