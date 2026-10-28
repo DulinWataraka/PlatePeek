@@ -14,6 +14,11 @@ function App() {
         setPage("profile");
     }
 
+    // Merge edits from the Edit Profile page into the saved account
+    function updateAccount(changes) {
+        setAccount((prev) => ({ ...prev, ...changes }));
+    }
+
     if (page === "login") {
         return (
             <Login
@@ -39,6 +44,7 @@ function App() {
             <Profile
                 account={account}
                 onBackToHome={() => setPage("home")}
+                onAccountUpdate={updateAccount}
                 onLogout={() => {
                     setAccount(null);
                     setPage("home");
