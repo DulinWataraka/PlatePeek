@@ -10,7 +10,7 @@ function App() {
     const [account, setAccount] = useState(null); // { role: "guest" | "host", ...formData }
 
     function goToProfile(role, data) {
-        setAccount({ role, ...data });
+        setAccount({ role, memberSince: new Date().getFullYear(), ...data });
         setPage("profile");
     }
 
