@@ -44,7 +44,7 @@
 
 .pf-page {
     color: var(--pf-ink);
-    background: var(--pf-cream);
+    background: #F5F3E7;
     min-height: 100vh;
     display: flex;
     font-size: 16px;
@@ -95,7 +95,7 @@
     flex: 0 0 300px;
     width: 300px;
     height: 100vh;
-    background: var(--pf-forest);
+    background: #3D5926;
     color: var(--pf-on-forest);
     display: flex;
     flex-direction: column;
