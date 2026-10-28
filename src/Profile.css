@@ -621,7 +621,7 @@
     flex-direction: column;
     border-radius: 10px;
     border: 1px solid var(--pf-line);
-    background: var(--pf-card);
+    background: #F8F7EF;
     box-shadow: var(--pf-shadow);
     transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
