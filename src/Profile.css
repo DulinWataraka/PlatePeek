@@ -115,17 +115,11 @@
     text-align: left;
 }
 
-.pf-logo-icon {
+.pf-logo-img {
     flex: 0 0 auto;
-    width: 62px;
-    height: 62px;
-    border-radius: 16px;
-    background: var(--pf-orange, #FC8F00);
-    color: var(--pf-forest, #3D5926);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 21px;
+    display: block;
+    height: 52px;
+    width: auto;
 }
 
 .pf-logo-text {
@@ -569,6 +563,7 @@
 
 .pf-tabs {
     display: flex;
+    justify-content: center;
     gap: 14px;
     border-bottom: 1px solid var(--pf-line);
     margin-top: 6px;
@@ -644,6 +639,14 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+.pf-card-media video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background: #000;
 }
 
 .pf-card-tag {
@@ -1008,9 +1011,8 @@
         width: 250px;
     }
 
-    .pf-logo-icon {
-        width: 52px;
-        height: 52px;
+    .pf-logo-img {
+        height: 46px;
     }
 
     .pf-logo-name {
@@ -1579,4 +1581,18 @@
         transform: translateX(0);
         opacity: 1;
     }
+}
+
+/* Logo on the edit-profile side panel */
+.pf-edit-logo-img {
+    display: block;
+    height: 46px;
+    width: auto;
+}
+
+.pf-upload video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }

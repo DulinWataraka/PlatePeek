@@ -1,3 +1,4 @@
+import logo from "./assets/logo.png";
 import "./Homepage.css";
 import pastaImg from "./assets/pasta.png";
 import pasta2Img from "./assets/pasta2.png";
@@ -9,7 +10,7 @@ function Homepage({ onLoginClick, onRegisterClick }) {
         <div className="app">
             <header className="navbar">
                 <div className="logo">
-                    <span className="logo-icon">🍴</span>
+                    <img className="logo-img" src={logo} alt="" />
                     <span>plate peek</span>
                 </div>
 

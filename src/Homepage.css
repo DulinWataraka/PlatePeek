@@ -39,15 +39,10 @@ button {
     letter-spacing: -1px;
 }
 
-.logo-icon {
-    width: 42px;
-    height: 42px;
-    border-radius: 14px;
-    background: #FC8F00;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 21px;
+.logo-img {
+    display: block;
+    height: 46px;
+    width: auto;
 }
 
 .navbar nav {

@@ -1,14 +1,14 @@
 import { useEffect, useId, useRef, useState } from "react";
 import "./Profile.css";
 import Icon from "./ProfileIcons.jsx";
+import logoLight from "./assets/logo-light.png";
 import {
     CUISINES,
     DEFAULT_CUISINES,
-    INITIAL_SAVED_IDS,
+    INITIAL_CRAVING_IDS,
     SAMPLE_NOTIFICATIONS,
     SAMPLE_POSTS,
-    SAMPLE_REVIEWS,
-    SAMPLE_SAVED_FROM_OTHERS,
+    SAMPLE_CRAVINGS_FROM_OTHERS,
     sampleCommentsFor,
 } from "./profileData.js";
 
@@ -26,8 +26,8 @@ const SHOP_CATEGORIES = [
 
 const TABS = [
     { key: "posts", label: "Posts" },
-    { key: "reviews", label: "Reviews" },
-    { key: "saved", label: "Saved" },
+    { key: "videos", label: "Videos" },
+    { key: "cravings", label: "Cravings" },
 ];
 
 /* ---------- HELPERS ---------- */
@@ -216,7 +216,11 @@ function FoodCard({ item, liked, commentCount, onLike, onComment, menuItems }) {
     return (
         <article className="pf-card">
             <div className="pf-card-media">
-                <img src={item.image} alt={item.title} loading="lazy" />
+                {item.video ? (
+                    <video src={item.video} controls playsInline preload="metadata" aria-label={item.title} />
+                ) : (
+                    <img src={item.image} alt={item.title} loading="lazy" />
+                )}
                 <span className="pf-card-tag">
                     <Icon name="pin" size={13} strokeWidth={2} />
                     {item.tag}
@@ -271,7 +275,7 @@ function FoodCard({ item, liked, commentCount, onLike, onComment, menuItems }) {
 
 /* ---------- SIDEBAR ---------- */
 
-function Sidebar({ profile, profileImage, activeKey, hasUnread, notifOpen, onCloseNotifications, onNavigate, onEdit, onLogout }) {
+function Sidebar({ profile, profileImage, activeKey, hasUnread, notifOpen, onCloseNotifications, onNavigate, onLogout }) {
     const [userMenuOpen, setUserMenuOpen] = useState(false);
     const userMenuRef = useDismiss(userMenuOpen, () => setUserMenuOpen(false));
 
@@ -280,7 +284,7 @@ function Sidebar({ profile, profileImage, activeKey, hasUnread, notifOpen, onClo
         { key: "discover", icon: "compass", label: "Discover" },
         { key: "create", icon: "plus", label: "Create" },
         { key: "plates", icon: "utensils", label: "My plates" },
-        { key: "saved", icon: "bookmark", label: "Saved" },
+        { key: "cravings", icon: "repost", label: "Cravings" },
     ];
 
     function renderLink(item) {
@@ -306,9 +310,7 @@ function Sidebar({ profile, profileImage, activeKey, hasUnread, notifOpen, onClo
     return (
         <aside className="pf-sidebar">
             <button type="button" className="pf-logo" onClick={() => onNavigate("home")} aria-label="Platepeek home">
-                <span className="pf-logo-icon">
-                    <Icon name="sparkle" size={28} strokeWidth={1.8} />
-                </span>
+                <img className="pf-logo-img" src={logoLight} alt="" />
                 <span className="pf-logo-text">
                     <span className="pf-logo-name">platepeek</span>
                     <span className="pf-logo-tagline">THE GOOD STUFF</span>
@@ -327,9 +329,13 @@ function Sidebar({ profile, profileImage, activeKey, hasUnread, notifOpen, onClo
             <div className="pf-side-user-wrap" ref={userMenuRef}>
                 {userMenuOpen && (
                     <div className="pf-user-menu" role="menu">
-                        <button type="button" role="menuitem" className="pf-menu-item" onClick={() => { setUserMenuOpen(false); onEdit(); }}>
-                            <Icon name="pen" size={18} />
-                            <span>Edit profile</span>
+                        <button type="button" role="menuitem" className="pf-menu-item" onClick={() => { setUserMenuOpen(false); onNavigate("settings"); }}>
+                            <Icon name="settings" size={18} />
+                            <span>Settings</span>
+                        </button>
+                        <button type="button" role="menuitem" className="pf-menu-item" onClick={() => { setUserMenuOpen(false); onNavigate("activity"); }}>
+                            <Icon name="activity" size={18} />
+                            <span>Activity</span>
                         </button>
                         <button type="button" role="menuitem" className="pf-menu-item pf-menu-item-danger" onClick={onLogout}>
                             <Icon name="logout" size={18} />
@@ -397,10 +403,21 @@ function CommentsDialog({ item, comments, onAdd, onClose }) {
 
 function CreatePlateDialog({ onCreate, onClose }) {
     const [image, setImage] = useState("");
+    const [video, setVideo] = useState("");
 
-    function handleImageChange(e) {
+    useEffect(() => () => {
+        if (video) URL.revokeObjectURL(video);
+    }, [video]);
+
+    function handleMediaChange(e) {
         const file = e.target.files?.[0];
         if (!file) return;
+        if (file.type.startsWith("video/")) {
+            setImage("");
+            setVideo(URL.createObjectURL(file));
+            return;
+        }
+        setVideo("");
         const reader = new FileReader();
         reader.onload = () => setImage(reader.result);
         reader.readAsDataURL(file);
@@ -417,20 +434,21 @@ function CreatePlateDialog({ onCreate, onClose }) {
             caption: text("caption"),
             rating: Number(text("rating")) || null,
             image,
+            video,
         });
     }
 
     return (
         <Modal title="Share a plate" onClose={onClose}>
             <form className="pf-create-form" onSubmit={handleSubmit}>
-                <label className={`pf-upload ${image ? "pf-upload-filled" : ""}`}>
-                    {image ? <img src={image} alt="Selected dish" /> : (
+                <label className={`pf-upload ${image || video ? "pf-upload-filled" : ""}`}>
+                    {video ? <video src={video} muted playsInline aria-label="Selected dish video" /> : image ? <img src={image} alt="Selected dish" /> : (
                         <>
                             <Icon name="image" size={28} />
-                            <span>Add a photo of your dish</span>
+                            <span>Add a photo or video of your dish</span>
                         </>
                     )}
-                    <input type="file" accept="image/*" onChange={handleImageChange} required={!image} className="pf-sr-only" />
+                    <input type="file" accept="image/*,video/*" onChange={handleMediaChange} required={!image && !video} className="pf-sr-only" />
                 </label>
 
                 <label htmlFor="pf-dish">Dish name</label>
@@ -493,7 +511,7 @@ function ProfileView({ account, onBackToHome, onLogout, onEdit }) {
 
     const [activeTab, setActiveTab] = useState("posts");
     const [posts, setPosts] = useState(SAMPLE_POSTS);
-    const [savedIds, setSavedIds] = useState(() => new Set(INITIAL_SAVED_IDS));
+    const [cravingIds, setCravingIds] = useState(() => new Set(INITIAL_CRAVING_IDS));
     const [likedIds, setLikedIds] = useState(() => new Set());
     const [addedComments, setAddedComments] = useState({});
     const [commentsFor, setCommentsFor] = useState(null);
@@ -546,16 +564,16 @@ function ProfileView({ account, onBackToHome, onLogout, onEdit }) {
         });
     }
 
-    function toggleSaved(id) {
-        const wasSaved = savedIds.has(id);
-        toggleInSet(setSavedIds, id);
-        showToast(wasSaved ? "Removed from saved" : "Saved");
+    function toggleCraving(id) {
+        const wasCraved = cravingIds.has(id);
+        toggleInSet(setCravingIds, id);
+        showToast(wasCraved ? "Removed from cravings" : "Added to your cravings");
     }
 
     function deletePost(post) {
         if (!window.confirm(`Delete "${post.dish}"? This can't be undone.`)) return;
         setPosts((prev) => prev.filter((p) => p.id !== post.id));
-        setSavedIds((prev) => {
+        setCravingIds((prev) => {
             const next = new Set(prev);
             next.delete(post.id);
             return next;
@@ -587,7 +605,9 @@ function ProfileView({ account, onBackToHome, onLogout, onEdit }) {
         else if (key === "discover") showToast("Discover is coming soon");
         else if (key === "create") setCreating(true);
         else if (key === "plates") setActiveTab("posts");
-        else if (key === "saved") setActiveTab("saved");
+        else if (key === "cravings") setActiveTab("cravings");
+        else if (key === "settings") showToast("Settings is coming soon");
+        else if (key === "activity") showToast("Activity is coming soon");
         else if (key === "notifications") {
             setNotifOpen((v) => !v);
             setHasUnread(false);
@@ -612,6 +632,7 @@ function ProfileView({ account, onBackToHome, onLogout, onEdit }) {
         return {
             id: post.id,
             image: post.image,
+            video: post.video,
             tag: post.restaurant,
             title: post.dish,
             meta: [post.author ? `@${post.author}` : null, post.restaurant, post.location],
@@ -619,20 +640,6 @@ function ProfileView({ account, onBackToHome, onLogout, onEdit }) {
             rating: post.rating,
             likes: post.likes,
             comments: post.comments,
-        };
-    }
-
-    function reviewToCard(review) {
-        return {
-            id: review.id,
-            image: review.image,
-            tag: review.location,
-            title: review.restaurant,
-            meta: [review.location, `Visited ${review.visited}`],
-            text: review.text,
-            rating: review.rating,
-            likes: review.likes,
-            comments: review.comments,
         };
     }
 
@@ -652,17 +659,22 @@ function ProfileView({ account, onBackToHome, onLogout, onEdit }) {
     }
 
     function postMenu(post, isOwn) {
-        const saved = savedIds.has(post.id);
-        const items = [
-            { label: saved ? "Remove from saved" : "Save plate", icon: saved ? "bookmarkFilled" : "bookmark", onSelect: () => toggleSaved(post.id) },
-            { label: "Copy link", icon: "link", onSelect: () => handleCopyPostLink(post.id) },
-        ];
+        const items = [];
+        if (!isOwn) {
+            const craved = cravingIds.has(post.id);
+            items.push({
+                label: craved ? "Remove from cravings" : "Add to cravings",
+                icon: "repost",
+                onSelect: () => toggleCraving(post.id),
+            });
+        }
+        items.push({ label: "Copy link", icon: "link", onSelect: () => handleCopyPostLink(post.id) });
         if (isOwn) items.push({ label: "Delete plate", icon: "trash", danger: true, onSelect: () => deletePost(post) });
         return items;
     }
 
-    const savedPosts = [...posts, ...SAMPLE_SAVED_FROM_OTHERS].filter((p) => savedIds.has(p.id));
-    const ownIds = new Set(posts.map((p) => p.id));
+    const videoPosts = posts.filter((p) => p.video);
+    const cravingPosts = SAMPLE_CRAVINGS_FROM_OTHERS.filter((p) => cravingIds.has(p.id));
 
     let panel;
     if (activeTab === "posts") {
@@ -671,21 +683,17 @@ function ProfileView({ account, onBackToHome, onLogout, onEdit }) {
         ) : (
             <EmptyState text="No plates yet." action="Share your first plate" onAction={() => setCreating(true)} />
         );
-    } else if (activeTab === "reviews") {
-        panel = (
-            <div className="pf-grid">
-                {SAMPLE_REVIEWS.map((r) =>
-                    renderCard(reviewToCard(r), [
-                        { label: "Copy link", icon: "link", onSelect: () => handleCopyPostLink(r.id) },
-                    ]),
-                )}
-            </div>
+    } else if (activeTab === "videos") {
+        panel = videoPosts.length ? (
+            <div className="pf-grid">{videoPosts.map((p) => renderCard(postToCard(p), postMenu(p, true)))}</div>
+        ) : (
+            <EmptyState text="No videos yet." action="Share a video" onAction={() => setCreating(true)} />
         );
     } else {
-        panel = savedPosts.length ? (
-            <div className="pf-grid">{savedPosts.map((p) => renderCard(postToCard(p), postMenu(p, ownIds.has(p.id))))}</div>
+        panel = cravingPosts.length ? (
+            <div className="pf-grid">{cravingPosts.map((p) => renderCard(postToCard(p), postMenu(p, false)))}</div>
         ) : (
-            <EmptyState text="Nothing saved yet. Tap ••• on any plate to save it for later." />
+            <EmptyState text="No cravings yet. Tap ••• on any plate to add it to your cravings." />
         );
     }
 
@@ -695,7 +703,7 @@ function ProfileView({ account, onBackToHome, onLogout, onEdit }) {
         { icon: "user", value: profile.followers, label: "Foodie followers" },
     ];
 
-    const sidebarKey = notifOpen ? "notifications" : activeTab === "posts" ? "plates" : activeTab === "saved" ? "saved" : null;
+    const sidebarKey = notifOpen ? "notifications" : activeTab === "posts" ? "plates" : activeTab === "cravings" ? "cravings" : null;
 
     return (
         <div className="pf-page">
@@ -707,7 +715,6 @@ function ProfileView({ account, onBackToHome, onLogout, onEdit }) {
                 notifOpen={notifOpen}
                 onCloseNotifications={() => setNotifOpen(false)}
                 onNavigate={handleNavigate}
-                onEdit={onEdit}
                 onLogout={onLogout}
             />
 
@@ -884,7 +891,7 @@ function EditProfile({ account, onBackToHome, onCancel, onSave }) {
         <div className="pf-edit-page">
             <aside className="pf-edit-side">
                 <div className="pf-edit-logo" onClick={onBackToHome}>
-                    <span className="pf-logo-icon">🍴</span>
+                    <img className="pf-edit-logo-img" src={logoLight} alt="" />
                     <span>plate peek</span>
                 </div>
 

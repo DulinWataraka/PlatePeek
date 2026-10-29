@@ -1,3 +1,4 @@
+import logoLight from "./assets/logo-light.png";
 import { useState } from "react";
 import "./Register.css";
 
@@ -46,7 +47,7 @@ function Register({ onBackToHome, onLoginClick, onRegisterSuccess }) {
         <div className="register-page">
             <aside className="register-side">
                 <div className="register-logo" onClick={onBackToHome}>
-                    <span className="register-logo-icon">🍴</span>
+                    <img className="register-logo-img" src={logoLight} alt="" />
                     <span>plate peek</span>
                 </div>
 

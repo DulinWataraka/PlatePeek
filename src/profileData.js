@@ -99,45 +99,8 @@ export const SAMPLE_POSTS = [
     },
 ];
 
-/* Restaurant reviews written by the signed-in user */
-export const SAMPLE_REVIEWS = [
-    {
-        id: "r1",
-        restaurant: "Sōma Sushi",
-        location: "Colombo 3",
-        image: sushi,
-        rating: 10,
-        visited: "Sep 2026",
-        likes: 41,
-        comments: 4,
-        text: "Easily the best sushi in town. Friendly staff, quick service and the salmon melts in your mouth.",
-    },
-    {
-        id: "r2",
-        restaurant: "The Pasta House",
-        location: "Colombo 3",
-        image: pasta,
-        rating: 9,
-        visited: "Aug 2026",
-        likes: 27,
-        comments: 3,
-        text: "Cosy spot with generous portions. Book ahead on weekends.",
-    },
-    {
-        id: "r3",
-        restaurant: "Pizzaiolo",
-        location: "Colombo 4",
-        image: pizza,
-        rating: 8,
-        visited: "Jul 2026",
-        likes: 19,
-        comments: 2,
-        text: "Great wood-fired base, toppings could be a little more generous for the price.",
-    },
-];
-
-/* Posts by other foodies that the signed-in user has saved */
-export const SAMPLE_SAVED_FROM_OTHERS = [
+/* Posts by other foodies that the signed-in user has reposted to their Cravings */
+export const SAMPLE_CRAVINGS_FROM_OTHERS = [
     {
         id: "s1",
         author: "colombo.bites",
@@ -164,7 +127,7 @@ export const SAMPLE_SAVED_FROM_OTHERS = [
     },
 ];
 
-export const INITIAL_SAVED_IDS = ["s1", "s2"];
+export const INITIAL_CRAVING_IDS = ["s1", "s2"];
 
 export function sampleCommentsFor(postId) {
     return SAMPLE_COMMENTS.map((c) => ({ ...c, id: `${postId}-${c.id}` }));

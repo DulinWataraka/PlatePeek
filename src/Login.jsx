@@ -1,3 +1,4 @@
+import logoLight from "./assets/logo-light.png";
 import { useState } from "react";
 import "./Login.css";
 
@@ -8,7 +9,7 @@ function Login({ onBackToHome, onRegisterClick, onLoginSuccess }) {
         <div className="login-page">
             <aside className="login-side">
                 <div className="login-logo" onClick={onBackToHome}>
-                    <span className="login-logo-icon">🍴</span>
+                    <img className="login-logo-img" src={logoLight} alt="" />
                     <span>plate peek</span>
                 </div>
 
